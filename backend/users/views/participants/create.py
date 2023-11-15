@@ -10,7 +10,7 @@ class ParticipantCreateAPIView(APIView):
     permission_classes = [AllowAny]
 
     class InputSerializer(serializers.Serializer):
-        title = serializers.CharField(required=True)
+        name = serializers.CharField(required=True)
 
     def post(self, request):
         serializer = self.InputSerializer(data=request.data)
