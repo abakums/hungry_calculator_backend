@@ -1,6 +1,6 @@
 FROM python:3.11-alpine as builder
 
-COPY src/requirements.txt .
+COPY backend/requirements.txt .
 
 RUN apk add --no-cache gcc g++ make libuv-dev libffi-dev cargo postgresql-dev \
     && mkdir build \
@@ -19,4 +19,4 @@ COPY --from=builder /build /usr/local
 
 WORKDIR /app
 
-COPY src/ .
+COPY backend/ .
