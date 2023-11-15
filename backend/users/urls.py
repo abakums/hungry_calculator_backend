@@ -11,7 +11,7 @@ participants_urlpatterns = [
 
 
 groups_url_patterns = [
-    path("create/", GroupCreateAPIView.as_view(), name="group-create")
+    path("create/", GroupCreateAPIView.as_view(), name="group-create"),
     path("get/", GroupGetAPIView.as_view(), name="groups-get"),
 ]
 

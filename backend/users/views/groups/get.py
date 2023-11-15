@@ -6,7 +6,6 @@ from rest_framework.generics import get_object_or_404
 
 from users.models import Group, Participant
 from bills.models import BillPosition, ParticipantBillPosition
-from users.utils.groups import create_group
 
 
 class GroupGetAPIView(APIView):

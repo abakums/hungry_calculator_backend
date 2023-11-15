@@ -10,7 +10,7 @@ services:
     volumes:
       - static-files:/var/html/static:ro
     depends_on:
-      - music
+      - api
     ports:
       - "465:465"
       - "587:587"
