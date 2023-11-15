@@ -15,6 +15,7 @@ class ParticipantBillPosition(models.Model):
         related_name="participant_bill_positions"
     )
     participant_price = models.IntegerField("Стоимость")
+    personal_parts = models.IntegerField("Частей", default=1)
 
     class Meta:
         verbose_name = "позицию участника"
@@ -41,6 +42,7 @@ class BillPosition(models.Model):
         through="ParticipantBillPosition",
         through_fields=("bill_position", "participant", "participant_price")
     )
+    parts = models.IntegerField("Части", default=1)
 
     class Meta:
         verbose_name = "позицию в чеке"
