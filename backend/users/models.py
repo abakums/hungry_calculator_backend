@@ -22,12 +22,13 @@ class Group(models.Model):
 
     def get_bill(self):
         payers = {}
+        prices = {}
         positions = self.bill_positions.all().prefetch_related("participant_bill_positions")
         for position in positions:
             participant_bill_positions = position.participant_bill_positions.all()
             for participant_bill_position in participant_bill_positions:
                 if participant_bill_position.participant.id not in payers:
-                    payers[participant_bill_position.participant.id] = [0]
+                    payers[participant_bill_position.participant.id] = []
                 payers[participant_bill_position.participant.id].append(
                     {
                         "id": position.id,
@@ -38,15 +39,17 @@ class Group(models.Model):
                         "personalParts": participant_bill_position.personal_parts
                     }
                 )
-                payers[participant_bill_position.id][0] += participant_bill_position.participant_price
+                if participant_bill_position.id not in prices:
+                    prices[participant_bill_position.id] = 0
+                prices[participant_bill_position.id] += participant_bill_position.participant_price
 
         result = []
         for payer_id, positions in payers.items():
             result.append(
                 {
                     "payerId": payer_id,
-                    "totalPrice": positions[0],
-                    "positions": positions[1:]
+                    "totalPrice": prices[payer_id],
+                    "positions": positions
                 }
             )
 
