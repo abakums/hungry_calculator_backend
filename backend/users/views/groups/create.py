@@ -25,7 +25,15 @@ class GroupCreateAPIView(APIView):
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        group = create_group(serializer.validated_data)
+        group, participants = create_group(serializer.validated_data)
 
-        data = {"groupId": group.group_uuid}
+        data = {
+            "groupId": group.group_uuid,
+            "participants": [
+                {
+                    "id": participant.id,
+                    "name": participant.name
+                } for participant in participants
+            ]
+        }
         return Response(data=data, status=status.HTTP_201_CREATED)

@@ -24,4 +24,4 @@ def create_group(data):
 
     ParticipantGroup.objects.bulk_create(participant_groups_to_create)
 
-    return group
+    return group, created_participants
