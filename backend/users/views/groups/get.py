@@ -46,7 +46,7 @@ class GroupGetAPIView(APIView):
 
             class Meta:
                 model = BillPosition
-                field = ("totalPrice", "positions")
+                fields = ("totalPrice", "positions")
 
         title = serializers.CharField(required=True)
         requisites = serializers.CharField(required=True)
