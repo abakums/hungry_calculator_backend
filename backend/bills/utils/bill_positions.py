@@ -28,4 +28,4 @@ def create_bill_positions(data):
             participant_bill_position.save()
 
         response["positions"].append({"id": bill_position.id, "title": bill_position.title})
-        return response
+    return response
