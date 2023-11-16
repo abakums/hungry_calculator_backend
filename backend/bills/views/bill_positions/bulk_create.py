@@ -13,10 +13,12 @@ class BillPositionBulkCreateAPIView(APIView):
         class PositionsSerializer(serializers.Serializer):
             class PayerSerializer(serializers.Serializer):
                 id = serializers.IntegerField(required=True)
-                pricePerPart = serializers.IntegerField(required=True)
+                personalPrice = serializers.IntegerField(required=True)
+                personalParts = serializers.IntegerField(required=True)
 
             title = serializers.CharField(required=True)
             price = serializers.IntegerField(required=True)
+            parts = serializers.IntegerField(required=True)
             payers = PayerSerializer(many=True)
 
         groupId = serializers.CharField(required=True)

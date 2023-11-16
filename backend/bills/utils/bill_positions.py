@@ -13,7 +13,8 @@ def create_bill_positions(data):
         bill_position = BillPosition(
             title=position.get("title"),
             price=position.get("price"),
-            group_id=group.id
+            group_id=group.id,
+            parts=position.get("parts")
         )
         bill_position.save()
         payers = position.get("payers")
@@ -21,7 +22,8 @@ def create_bill_positions(data):
             participant_bill_position = ParticipantBillPosition(
                 bill_position_id=bill_position.id,
                 participant_id=payer.get("id"),
-                participant_price=payer.get("pricePerPart")
+                participant_price=payer.get("personalPrice"),
+                personal_parts=payer.get("personalParts")
             )
             participant_bill_position.save()
 
