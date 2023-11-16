@@ -1,4 +1,5 @@
 import uuid
+import random
 from django.db import models
 
 
@@ -10,7 +11,7 @@ class Group(models.Model):
         verbose_name="Организатор",
         related_name="organizer_groups"
     )
-    group_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    group_uuid = models.CharField("Уникальный ID", max_length=4, default="")
     requisites = models.CharField("Реквизиты", max_length=100)
 
     class Meta:
@@ -19,6 +20,14 @@ class Group(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.group_uuid = str(random.randint(1000, 9999))
+            while Group.objects.filter(group_uuid=self.group_uuid).exists():
+                self.group_uuid = str(random.randint(1000, 9999))
+
+        super().save(*args, **kwargs)
 
     def get_bill(self):
         payers = {}
