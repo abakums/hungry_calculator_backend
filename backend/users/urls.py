@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from users.views.groups.get import GroupGetAPIView
+from users.views.groups.get_2 import GroupGetAPIView
 from users.views.groups.create import GroupCreateAPIView
 from users.views.participants.create import ParticipantCreateAPIView
 

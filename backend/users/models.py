@@ -20,6 +20,38 @@ class Group(models.Model):
     def __str__(self):
         return self.title
 
+    def get_bill(self):
+        payers = {}
+        positions = self.bill_positions.all().prefetch_related("participant_bill_positions")
+        for position in positions:
+            participant_bill_positions = position.participant_bill_positions.all()
+            for participant_bill_position in participant_bill_positions:
+                if participant_bill_position.participant.id not in payers:
+                    payers[participant_bill_position.participant.id] = [0]
+                payers[participant_bill_position.participant.id].append(
+                    {
+                        "id": position.id,
+                        "title": position.title,
+                        "price": position.price,
+                        "parts": position.parts,
+                        "personalPrice": participant_bill_position.participant_price,
+                        "personalParts": participant_bill_position.personal_parts
+                    }
+                )
+                payers[participant_bill_position.id][0] += participant_bill_position.participant_price
+
+        result = []
+        for payer_id, positions in payers.items():
+            result.append(
+                {
+                    "payerId": payer_id,
+                    "totalPrice": positions[0],
+                    "positions": positions[1:]
+                }
+            )
+
+        return payers
+
 
 class Participant(models.Model):
     name = models.CharField("Имя", max_length=200)
