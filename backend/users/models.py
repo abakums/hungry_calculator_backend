@@ -53,8 +53,8 @@ class Group(models.Model):
                     "positions": positions
                 }
             )
-
-        return payers
+        print(result)
+        return result
 
 
 class Participant(models.Model):
