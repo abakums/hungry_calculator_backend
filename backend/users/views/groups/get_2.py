@@ -19,7 +19,7 @@ class GroupGetAPIView(APIView):
                 model = Participant
                 fields = ("id",)
 
-        class ParticipantSerializer(serializers.Serializer):
+        class ParticipantSerializer(serializers.ModelSerializer):
             id = serializers.IntegerField(required=True)
             name = serializers.CharField(required=True)
 
@@ -27,7 +27,7 @@ class GroupGetAPIView(APIView):
                 model = Participant
                 fields = ("id", "name")
 
-        class BillSerializer(serializers.ModelSerializer):
+        class BillSerializer(serializers.Serializer):
             class PositionSerializer(serializers.Serializer):
                 id = serializers.IntegerField(required=True)
                 title = serializers.CharField(required=True)
