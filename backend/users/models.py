@@ -40,6 +40,7 @@ class Group(models.Model):
                     }
                 )
                 if participant_bill_position.id not in prices:
+                    print(participant_bill_position.id)
                     prices[participant_bill_position.id] = 0
                 prices[participant_bill_position.id] += participant_bill_position.participant_price
 
@@ -48,7 +49,7 @@ class Group(models.Model):
             result.append(
                 {
                     "payerId": payer_id,
-                    "totalPrice": prices[payer_id],
+                    "totalPrice": prices.get(payer_id),
                     "positions": positions
                 }
             )
